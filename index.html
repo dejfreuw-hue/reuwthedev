@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReuwTheDev — Minecraft plugins &amp; Discord bots</title>
+<meta name="description" content="Minecraft plugins and Discord bots by ReuwTheDev: anti-xray, moderation, minigames and more.">
+<link rel="icon" href="assets/logo.png">
+<meta property="og:title" content="ReuwTheDev — Minecraft plugins &amp; Discord bots">
+<meta property="og:description" content="Anti-xray, moderation, minigames and more. Available on BuiltByBit.">
+<meta property="og:image" content="assets/orewatch.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07070a;
+    --card: #121216;
+    --line: rgba(255, 255, 255, .08);
+    --text: #f5f5f6;
+    --muted: #9a9aa4;
+    --mint: #3fe0c8;
+    --head: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  img.pixel { image-rendering: pixelated; }
+  .wrap { width: min(1180px, 100% - 48px); margin: 0 auto; }
+
+  /* ---------- NAV ---------- */
+  header.nav { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); background: rgba(7, 7, 10, .82); border-bottom: 1px solid var(--line); }
+  .nav-inner { display: flex; align-items: center; gap: 18px; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 12px; font-family: var(--head); font-weight: 800; font-size: 19px; letter-spacing: -.01em; }
+  .brand img { width: 30px; height: 30px; }
+  .brand span i { font-style: normal; color: var(--mint); }
+  .nav-links { margin-left: auto; display: flex; align-items: center; gap: 26px; font-size: 15px; color: var(--muted); font-weight: 500; }
+  .nav-links a:hover { color: #fff; }
+  .btn { display: inline-flex; align-items: center; gap: 9px; padding: 11px 18px; border-radius: 12px; font-size: 14.5px; font-weight: 700; white-space: nowrap; }
+  .btn-primary { background: linear-gradient(180deg, #4ff0d6, #19b89c); color: #04231e; box-shadow: 0 10px 30px rgba(63, 224, 200, .22); }
+  .btn-ghost { color: #e8e8ec; box-shadow: inset 0 0 0 1px var(--line); background: rgba(255, 255, 255, .03); }
+  .btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 96px 0 72px; overflow: hidden; text-align: center;
+    background-image: linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+    background-size: 52px 52px; background-position: center top; }
+  .hero::before { content: ""; position: absolute; left: 50%; top: -120px; width: 1100px; height: 700px; transform: translateX(-50%); pointer-events: none;
+    background: radial-gradient(closest-side, rgba(63, 224, 200, .16), transparent 72%); }
+  .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 65% 60% at 50% 35%, transparent 25%, var(--bg) 82%); }
+  .hero > * { position: relative; z-index: 1; }
+  .kicker { display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px 8px 12px; border-radius: 999px; font-size: 13.5px; font-weight: 600; color: #d6d6dc;
+    background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px var(--line); }
+  .kicker i { width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 4px rgba(63, 224, 200, .15), 0 0 12px var(--mint); }
+  .hero-logo { width: 104px; height: 104px; margin: 34px 0 18px; filter: drop-shadow(0 18px 40px rgba(63, 224, 200, .35)); }
+  h1 { margin: 0; font-family: var(--head); font-weight: 800; font-size: clamp(42px, 7vw, 68px); letter-spacing: -.03em; line-height: 1.05; }
+  h1 i { font-style: normal; color: var(--mint); }
+  .hero p { margin: 20px auto 0; max-width: 620px; font-size: 19px; line-height: 1.6; color: var(--muted); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 34px; }
+  .stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 54px; }
+  .stat { min-width: 170px; padding: 20px 24px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+  .stat b { display: block; font-family: var(--head); font-size: 28px; font-weight: 800; letter-spacing: -.02em; }
+  .stat span { font-size: 13.5px; color: var(--muted); }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 76px 0; }
+  .sec-head { display: flex; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 34px; }
+  .eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--mint); }
+  h2 { margin: 12px 0 0; font-family: var(--head); font-weight: 700; font-size: clamp(30px, 4vw, 42px); letter-spacing: -.025em; }
+  .sec-head p { margin: 10px 0 0; max-width: 560px; color: var(--muted); font-size: 17px; line-height: 1.55; }
+  .filters { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .filter { padding: 9px 15px; border-radius: 999px; font-size: 13.5px; font-weight: 600; color: var(--muted); cursor: pointer;
+    background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line); }
+  .filter.active { color: #04231e; background: var(--mint); box-shadow: none; }
+
+  /* ---------- CARDS ---------- */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; align-items: start; }
+  .card { position: relative; display: flex; flex-direction: column; border-radius: 26px; overflow: hidden; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+  .card.featured { grid-column: span 2; }
+  .card.featured .thumb { aspect-ratio: 26 / 7; }
+  .card .thumb { position: relative; aspect-ratio: 16 / 7; overflow: hidden; background: #0b0b10; }
+  .card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .card .thumb.generated { display: grid; place-items: center; }
+  .card .thumb.generated .mark { font-family: "Press Start 2P", monospace; font-size: 26px; letter-spacing: 2px; color: #fff; text-shadow: 0 4px 0 rgba(0, 0, 0, .45); }
+  .card .body { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .row { display: flex; align-items: center; gap: 12px; }
+  .card h3 { margin: 0; font-family: var(--head); font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+  .card .sub { font-size: 14px; color: var(--muted); }
+  .price { margin-left: auto; font-family: var(--head); font-size: 22px; font-weight: 800; color: var(--accent); white-space: nowrap; }
+  .badge { padding: 5px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+  .badge.live { color: #0a2a1e; background: #3ddc84; }
+  .badge.soon { color: #2a1c02; background: #ffc14d; }
+  .badge.ver { color: #cfcfd6; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--line); font-family: "JetBrains Mono", monospace; text-transform: none; letter-spacing: 0; }
+  .card p.desc { margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--muted); }
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; }
+  .tag { padding: 6px 11px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #d8d8de; background: rgba(255, 255, 255, .04); box-shadow: inset 0 0 0 1px var(--line); }
+  .card .cta { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+  .card .cta .btn-primary { background: var(--accent); color: #0a0a0c; box-shadow: 0 10px 28px color-mix(in srgb, var(--accent) 28%, transparent); }
+
+  .addons { margin-top: 4px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+  .addon { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border-radius: 16px; background: rgba(255, 255, 255, .03); box-shadow: inset 0 0 0 1px var(--line); }
+  .addon .row { gap: 9px; }
+  .addon b { font-family: var(--head); font-size: 16px; font-weight: 800; }
+  .addon .sub { font-size: 12.5px; }
+  .addon p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+  .addon .price { font-size: 16px; }
+  .addon a { font-size: 13px; font-weight: 700; color: var(--accent); }
+  .addons-label { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #c8c8d0; }
+
+  /* ---------- WHY ---------- */
+  .why { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .why div { padding: 28px; border-radius: 22px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+  .why .ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(63, 224, 200, .12); box-shadow: inset 0 0 0 1px rgba(63, 224, 200, .3); }
+  .why .ic svg { width: 20px; height: 20px; fill: none; stroke: var(--mint); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .why h4 { margin: 18px 0 8px; font-family: var(--head); font-size: 20px; font-weight: 800; }
+  .why p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.6; }
+
+  /* ---------- SUPPORT ---------- */
+  .support { position: relative; overflow: hidden; padding: 48px; border-radius: 28px; background: linear-gradient(135deg, rgba(63, 224, 200, .14), transparent 55%), var(--card); box-shadow: inset 0 0 0 1px var(--line); text-align: center; }
+  .support h2 { margin-bottom: 12px; }
+  .support p { margin: 0 auto 26px; max-width: 540px; color: var(--muted); font-size: 17px; line-height: 1.6; }
+  .support .hero-actions { margin-top: 0; }
+
+  footer { padding: 42px 0 64px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  .foot-inner { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .foot-inner .brand { font-size: 16px; }
+  .foot-inner .right { margin-left: auto; text-align: right; }
+
+  @media (max-width: 860px) {
+    .nav-links a:not(.btn) { display: none; }
+    .card.featured { grid-column: span 1; }
+    .support { padding: 34px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top">
+      <img class="pixel" src="assets/logo.png" alt="">
+      <span>Reuw<i>TheDev</i></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#plugins">Plugins</a>
+      <a href="#why">Why these</a>
+      <a href="#support">Support</a>
+      <a class="btn btn-primary" id="nav-shop" href="#">BuiltByBit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="kicker"><i></i>Minecraft plugins &amp; Discord bots</span>
+      <img class="pixel hero-logo" src="assets/logo.png" alt="ReuwTheDev logo">
+      <h1>Reuw<i>TheDev</i></h1>
+      <p>Anti-cheat tooling, moderation and minigames for Minecraft servers — plus a self-hosted
+        Discord bot. Built to be dropped in, configured and forgotten about.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#plugins">
+          <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+          Browse the plugins
+        </a>
+        <a class="btn btn-ghost" id="hero-shop" href="#">
+          <svg viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg>
+          See them on BuiltByBit
+        </a>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <section id="plugins">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">The shop</span>
+          <h2>Every plugin, one place</h2>
+          <p>Each card links straight to its BuiltByBit page, where the full description, changelog
+            and purchase live.</p>
+        </div>
+        <div class="filters" id="filters"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">What to expect</span>
+          <h2>Built the boring, reliable way</h2>
+        </div>
+      </div>
+      <div class="why">
+        <div>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h4>No dependency chains</h4>
+          <p>The Minecraft plugins ship as a single jar. No ProtocolLib, no library downloads, no
+            license servers to go down and take your server with them.</p>
+        </div>
+        <div>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></svg></div>
+          <h4>Configurable, not hardcoded</h4>
+          <p>Messages, thresholds, rewards and modules live in config files with comments, so you
+            can tune behaviour without asking for a custom build.</p>
+        </div>
+        <div>
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <h4>Updates and answers</h4>
+          <p>Updates are posted on BuiltByBit and questions go through BuiltByBit conversations,
+            so the whole history of your purchase stays in one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="support">
+    <div class="wrap">
+      <div class="support">
+        <span class="eyebrow">Support</span>
+        <h2>Found a bug or need a feature?</h2>
+        <p>Message me on BuiltByBit with your server version, the plugin version and what you did —
+          that's usually enough to reproduce and fix it.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="support-shop" href="#">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Message on BuiltByBit
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="brand" href="#top"><img class="pixel" src="assets/logo.png" alt=""><span>Reuw<i>TheDev</i></span></a>
+    <div class="right">
+      <div>© <span id="year"></span> ReuwTheDev. All plugins sold through BuiltByBit.</div>
+      <div style="margin-top:4px;font-size:12.5px">Not affiliated with Mojang or Microsoft.</div>
+    </div>
+  </div>
+</footer>
+
+<script src="plugins.js"></script>
+<script>
+  // --- links that always point at the shop ---
+  for (const id of ["nav-shop", "hero-shop", "support-shop"]) {
+    document.getElementById(id).href = SHOP_URL;
+  }
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // --- stats ---
+  const addonCount = PLUGINS.reduce((n, p) => n + (p.addons ? p.addons.length : 0), 0);
+  const liveCount = PLUGINS.filter(p => p.status === "live").length;
+  const stats = [
+    [PLUGINS.length + addonCount, "resources on BuiltByBit"],
+    [liveCount, "available right now"],
+    [PLUGINS.filter(p => p.category === "minecraft").length, "Minecraft plugins"]
+  ];
+  document.getElementById("stats").innerHTML = stats
+    .map(([value, label]) => `<div class="stat"><b>${value}</b><span>${label}</span></div>`)
+    .join("");
+
+  // --- cards ---
+  const escape = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function thumb(plugin) {
+    if (plugin.art) {
+      return `<div class="thumb"><img src="${escape(plugin.art)}" alt="${escape(plugin.name)}"></div>`;
+    }
+    const accent = plugin.accent;
+    const style = `background:
+        radial-gradient(120% 120% at 15% 10%, ${accent}40, transparent 60%),
+        radial-gradient(120% 120% at 85% 90%, ${accent}26, transparent 60%),
+        linear-gradient(160deg, #15151b, #0a0a0e)`;
+    return `<div class="thumb generated" style="${style}">
+        <span class="mark" style="color:${accent}">${escape(plugin.name.slice(0, 2).toUpperCase())}</span>
+      </div>`;
+  }
+
+  function badge(status) {
+    return status === "live"
+      ? '<span class="badge live">Available</span>'
+      : '<span class="badge soon">Awaiting approval</span>';
+  }
+
+  function addonHtml(addon, accent) {
+    return `<div class="addon">
+      <div class="row">
+        <b>${escape(addon.name)}</b>
+        <span class="badge ver">v${escape(addon.version)}</span>
+        <span class="price">$${escape(addon.price)}</span>
+      </div>
+      <div class="sub">${escape(addon.subtitle)} · ${badge(addon.status)}</div>
+      <p>${escape(addon.description)}</p>
+      <a href="${escape(addon.url || SHOP_URL)}" target="_blank" rel="noopener">View add-on →</a>
+    </div>`;
+  }
+
+  function cardHtml(plugin) {
+    const addons = plugin.addons
+      ? `<div class="addons-label">Optional add-ons</div>
+         <div class="addons">${plugin.addons.map(a => addonHtml(a, plugin.accent)).join("")}</div>`
+      : "";
+    return `<article class="card${plugin.featured ? " featured" : ""}" style="--accent:${plugin.accent}" data-category="${plugin.category}" data-status="${plugin.status}">
+      ${thumb(plugin)}
+      <div class="body">
+        <div class="row">
+          <h3>${escape(plugin.name)}</h3>
+          <span class="badge ver">v${escape(plugin.version)}</span>
+          <span class="price">$${escape(plugin.price)}</span>
+        </div>
+        <div class="row">
+          <span class="sub">${escape(plugin.subtitle)}</span>
+          ${badge(plugin.status)}
+        </div>
+        <p class="desc">${escape(plugin.description)}</p>
+        <div class="tags">${plugin.tags.map(t => `<span class="tag">${escape(t)}</span>`).join("")}</div>
+        ${addons}
+        <div class="cta">
+          <a class="btn btn-primary" href="${escape(plugin.url || SHOP_URL)}" target="_blank" rel="noopener">
+            ${plugin.status === "live" ? "Get it on BuiltByBit" : "View on BuiltByBit"}
+          </a>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  const grid = document.getElementById("grid");
+  grid.innerHTML = PLUGINS.map(cardHtml).join("");
+
+  // --- filters ---
+  const filters = [
+    ["all", "All"],
+    ["minecraft", "Minecraft"],
+    ["discord", "Discord"],
+    ["live", "Available now"]
+  ];
+  document.getElementById("filters").innerHTML = filters
+    .map(([key, label], i) => `<button class="filter${i === 0 ? " active" : ""}" data-filter="${key}">${label}</button>`)
+    .join("");
+
+  document.getElementById("filters").addEventListener("click", event => {
+    const button = event.target.closest(".filter");
+    if (!button) return;
+    document.querySelectorAll(".filter").forEach(f => f.classList.toggle("active", f === button));
+    const key = button.dataset.filter;
+    document.querySelectorAll(".card").forEach(card => {
+      const show = key === "all"
+        || (key === "live" ? card.dataset.status === "live" : card.dataset.category === key);
+      card.style.display = show ? "" : "none";
+    });
+  });
+</script>
+</body>
+</html>
